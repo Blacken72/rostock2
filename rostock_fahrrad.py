@@ -17,11 +17,12 @@ df_pivot_datum=df.pivot_table(index='zeitpunkt', columns="standort_id", values="
 df_pivot_datum
 # %%
 # %%
-df_pivot_datum.resample('M').sum().plot.area()
+#df_pivot_datum.resample('M').sum().plot.area()
 # %%
 # %%
 import chardet
 url = "https://geo.sv.rostock.de/download/opendata/radmonitore/radmonitore_standorte.csv"
+response = requests.get(url)
 encoding = chardet.detect(response.content)['encoding']
 df_standorte = pd.read_csv(io.StringIO(response.content.decode(encoding)))
 df_standorte
@@ -36,11 +37,11 @@ dftage_gedreht=df7tage_gedreht.reset_index()
 # %%
 dftage_gedreht
 # %%
-df_gesamt=pd.merge(df_standorte, dftage_gedreht,left_on="standort_id", right_on="standort_id",how="left")
+df_gesamt=pd.merge(df_standorte, dftage_gedreht,left_on="id", right_on="standort_id",how="left")
 # %%
 df_gesamt
 # %%
-df_gesamt.to_csv('radmessstellen_karte.csv')
+#df_gesamt.to_csv('radmessstellen_karte.csv')
 # %%
 
 # Spalten als Datetime parsen (angenommen alle Spalten sind Datumsstrings)
